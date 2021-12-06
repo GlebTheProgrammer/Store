@@ -41,9 +41,9 @@ namespace Store.Tests
 
             
             bookRepositoryStub.Setup(x => x.GetAllByIsbn("Ritchie"))
-                .Returns(new[] { new Book(1, "", "", "") });
+                .Returns(new[] { new Book(1, "", "", "", "", 0m) });
             bookRepositoryStub.Setup(x => x.GetAllByTitleOrAuthor("Ritchie"))
-                .Returns(new[] { new Book(2, "", "", "") });
+                .Returns(new[] { new Book(2, "", "", "", "",0m) });
 
             var bookService = new BookService(bookRepositoryStub.Object); 
             var author = "Ritchie";
@@ -68,12 +68,12 @@ namespace Store.Tests
 
             bookRepository.ResultOfGetAllByIsbn = new[]
             {
-                new Book(idOfIsbnSearch,"","","")
+                new Book(idOfIsbnSearch,"","","","",0m)
             };
 
             bookRepository.ResultOfGetAllByTitleOrAuthor = new[]
             {
-                new Book(idOfAuthorSearch,"","","")
+                new Book(idOfAuthorSearch,"","","","",0m)
             };
 
             var bookService = new BookService(bookRepository);
@@ -95,12 +95,12 @@ namespace Store.Tests
 
             bookRepository.ResultOfGetAllByIsbn = new[]
             {
-                new Book(idOfIsbnSearch,"","","")
+                new Book(idOfIsbnSearch,"","","","",0m)
             };
 
             bookRepository.ResultOfGetAllByTitleOrAuthor = new[]
             {
-                new Book(idOfAuthorSearch,"","","")
+                new Book(idOfAuthorSearch,"","","","",0m)
             };
 
             var bookService = new BookService(bookRepository);

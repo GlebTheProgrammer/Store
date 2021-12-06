@@ -53,9 +53,14 @@ namespace Store.Web
 
             app.UseEndpoints(endpoints =>
             {
+                // controller/action/{id(parametr)}
+                // book
+                // book/index
+                // book/index/234 <- У контроллера book будет запущено действие index с параметром 234
+
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}"); // По умолчанию если задан controller, то он всегда Home, а если не задано действие, то это index
             });
         }
     }
