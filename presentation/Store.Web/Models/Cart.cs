@@ -7,9 +7,17 @@ namespace Store.Web.Models
 {
     public class Cart
     {
-        // У нашей корзины есть свойство Items - это словарь, у которого ключи и значения - это целые числа. Создаём его пустым изначально
-        public IDictionary<int, int> Items { get; set; } = new Dictionary<int, int>();
+       public int OrderId { get; }
 
-        public decimal Amount { get; set; }
+        public int TotalCount { get; set; }
+
+        public decimal TotalPrice { get; set; }
+
+        public Cart(int orderId)
+        {
+            OrderId = orderId;
+            TotalCount = 0;
+            TotalPrice = 0m;
+        }
     }
 }
