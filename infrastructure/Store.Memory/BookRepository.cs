@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Store.Memory
@@ -16,6 +17,16 @@ namespace Store.Memory
 
             new Book(3, "ISBN 0131101633", "B. W. Kernighan, D. M. Ritchie", "C Programming Language","Known as a bible of C",14.98m),
          };
+
+        public Book[] GetAllByIds(IEnumerable<int> bookIds)
+        {
+            // Есть 2 источника данных - книги и идентификаторы и мы соединяем эти 2 списка при условии сто идентификатор книги должен совпадать с внешним идентификатором
+            var foundBooks = from book in books
+                             join bookId in bookIds on book.Id equals bookId
+                             select book;
+
+            return foundBooks.ToArray();
+        }
 
         public Book[] GetAllByIsbn(string isbn)
         {

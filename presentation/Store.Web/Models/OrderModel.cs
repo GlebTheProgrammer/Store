@@ -5,19 +5,14 @@ using System.Threading.Tasks;
 
 namespace Store.Web.Models
 {
-    public class Cart
+    public class OrderModel
     {
-       public int OrderId { get; }
+        public int Id { get; set; }
+
+        public OrderItemModel[] Items { get; set; } = new OrderItemModel[0];
 
         public int TotalCount { get; set; }
 
         public decimal TotalPrice { get; set; }
-
-        public Cart(int orderId)
-        {
-            OrderId = orderId;
-            TotalCount = 0;
-            TotalPrice = 0m;
-        }
     }
 }
