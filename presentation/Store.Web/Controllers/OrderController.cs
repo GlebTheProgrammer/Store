@@ -78,7 +78,7 @@ namespace Store.Web.Controllers
 
             SaveOrderAndCart(order, cart);
 
-            return RedirectToAction("Index", "Book", new { id = bookId });
+            return RedirectToAction("Index", "Order");
         }
 
         // Картеж
@@ -108,15 +108,15 @@ namespace Store.Web.Controllers
             HttpContext.Session.Set(cart); // Сохраняем нашу сессию
         }
 
-        public IActionResult RemoveItem(int id)  // Удаляет товарную позицию целиком
+        public IActionResult RemoveItem(int bookId)  // Удаляет товарную позицию целиком
         {
             (Order order, Cart cart) = GetOrCreateOrderOrCart();
 
-            order.RemoveItem(id);
+            order.RemoveItem(bookId);
 
             SaveOrderAndCart(order, cart);
 
-            return RedirectToAction("Index", "Book", new { id });
+            return RedirectToAction("Index", "Order");
         }
     }
 }
