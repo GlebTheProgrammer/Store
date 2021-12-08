@@ -55,12 +55,38 @@ namespace Store.Web.Controllers
             };
         }
 
-        public IActionResult AddItem(int id)
+        public IActionResult AddItem(int bookId, int count = 1)
+        {
+            (Order order, Cart cart) = GetOrCreateOrderOrCart();
+
+            var book = bookRepository.GetById(bookId);
+
+            order.AddOrUpdateItem(book, count);
+
+            SaveOrderAndCart(order, cart);
+
+            return RedirectToAction("Index", "Book", new { id = bookId });
+
+        }
+
+        [HttpPost]
+        public IActionResult UpdateItem(int bookId, int count)
+        {
+            (Order order, Cart cart) = GetOrCreateOrderOrCart();
+
+            order.GetItem(bookId).Count = count;
+
+            SaveOrderAndCart(order, cart);
+
+            return RedirectToAction("Index", "Order");
+        }
+
+        // Картеж
+        private (Order order, Cart cart) GetOrCreateOrderOrCart()
         {
             Order order;
-            Cart cart;
 
-            if (HttpContext.Session.TryGetCart(out cart))
+            if (HttpContext.Session.TryGetCart(out Cart cart))
             {
                 order = orderRepository.GetById(cart.OrderId);
             }
@@ -69,17 +95,28 @@ namespace Store.Web.Controllers
                 order = orderRepository.Create();
                 cart = new Cart(order.Id);
             }
+            return (order, cart);
+        }
 
-            var book = bookRepository.GetById(id);
-            order.AddItem(book, 1);
+        private void SaveOrderAndCart(Order order, Cart cart)
+        {
             orderRepository.Update(order);
 
             cart.TotalCount = order.TotalCount;
             cart.TotalPrice = order.TotalPrice;
 
             HttpContext.Session.Set(cart); // Сохраняем нашу сессию
+        }
 
-            return RedirectToAction("Index", "Book", new { id = id });
+        public IActionResult RemoveItem(int bookId)  // Удаляет товарную позицию целиком
+        {
+            (Order order, Cart cart) = GetOrCreateOrderOrCart();
+
+            order.RemoveItem(bookId);
+
+            SaveOrderAndCart(order, cart);
+
+            return RedirectToAction("Index", "Order");
         }
     }
 }
