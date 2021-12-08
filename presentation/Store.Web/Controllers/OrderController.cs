@@ -55,7 +55,7 @@ namespace Store.Web.Controllers
             };
         }
 
-        public IActionResult AddItem(int bookId, int count)
+        public IActionResult AddItem(int bookId, int count = 1)
         {
             (Order order, Cart cart) = GetOrCreateOrderOrCart();
 
