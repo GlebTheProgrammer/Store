@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Store.Memory;
 using System;
 using Store.Messages;
+using Store.Contractors;
 
 namespace Store.Web
 {
@@ -34,6 +35,7 @@ namespace Store.Web
             services.AddSingleton<IBookRepository, BookRepository>();
             services.AddSingleton<IOrderRepository, OrderRepository>();
             services.AddSingleton<INotificationService, DebugNotificationService>();
+            services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
             services.AddSingleton<BookService>();
 
         }
