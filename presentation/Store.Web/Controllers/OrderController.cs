@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 using Store.Messages;
 using Store.Contractors;
+using Store.Web.Contractors;
 
 namespace Store.Web.Controllers
 {
@@ -16,18 +17,21 @@ namespace Store.Web.Controllers
         private readonly INotificationService notificationService;
         private readonly IEnumerable<IDeliveryService> deliveryServices;
         private readonly IEnumerable<IPaymentService> paymentServices;
+        private readonly IEnumerable<IWebContractorService> webContractorServices;
 
         public OrderController(IBookRepository bookRepository, 
                                IOrderRepository orderRepository,
                                INotificationService notificationService,
                                IEnumerable<IDeliveryService> deliveryServices,
-                               IEnumerable<IPaymentService> paymentServices) // Constructor Injection
+                               IEnumerable<IPaymentService> paymentServices,
+                               IEnumerable<IWebContractorService> webContractorServices) // Constructor Injection
         {
             this.bookRepository = bookRepository;
             this.orderRepository = orderRepository;
             this.notificationService = notificationService;
             this.deliveryServices = deliveryServices;
             this.paymentServices = paymentServices;
+            this.webContractorServices = webContractorServices;
         }
 
         [HttpGet]
@@ -266,6 +270,10 @@ namespace Store.Web.Controllers
 
             var form = paymentService.CreateForm(order);
 
+            var webContractorService = webContractorServices.SingleOrDefault(service => service.UniqueCode == uniqueCode);
+            if (webContractorService != null)
+                return Redirect(webContractorService.GetUri);
+
             return View("PaymentStep", form);
         }
 
@@ -286,6 +294,13 @@ namespace Store.Web.Controllers
             }
 
             return View("PaymentStep", form);
+        }
+
+        public IActionResult Finish()
+        {
+            HttpContext.Session.RemoveCart();
+
+            return View();
         }
     }
 }
