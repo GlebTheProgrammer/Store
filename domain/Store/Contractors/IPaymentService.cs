@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Store.Contractors
 {
-    public interface IDeliveryService
+    public interface IPaymentService
     {
         string UniqueCode { get; }  // на замену id
 
@@ -17,6 +17,6 @@ namespace Store.Contractors
         // Если метод возвращает форму, у которой параметр isFinal == true, то на этом показ формул будет преостановлен
         Form MoveNextForm(int orderId, int step, IReadOnlyDictionary<string, string> values);
 
-        OrderDelivery GetDelivery(Form form);
+        OrderPayment GetPayment(Form form);
     }
 }

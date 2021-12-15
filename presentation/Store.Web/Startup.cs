@@ -7,6 +7,8 @@ using Store.Memory;
 using System;
 using Store.Messages;
 using Store.Contractors;
+using Store.Yandex.Kassa;
+using Store.Web.Contractors;
 
 namespace Store.Web
 {
@@ -36,6 +38,9 @@ namespace Store.Web
             services.AddSingleton<IOrderRepository, OrderRepository>();
             services.AddSingleton<INotificationService, DebugNotificationService>();
             services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
+            services.AddSingleton<IPaymentService, CashPaymentService>();
+            services.AddSingleton<IPaymentService, YandexKassaPaymentService>();
+            services.AddSingleton<IWebContractorService, YandexKassaPaymentService>();
             services.AddSingleton<BookService>();
 
         }
@@ -72,6 +77,11 @@ namespace Store.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"); // По умолчанию если задан controller, то он всегда Home, а если не задано действие, то это index
+
+                endpoints.MapAreaControllerRoute(
+                    name: "yandex.kassa",
+                    areaName: "YandexKassa",
+                    pattern: "YandexKassa/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
