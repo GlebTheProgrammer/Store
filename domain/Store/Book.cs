@@ -27,7 +27,7 @@ namespace Store
         }
 
         //Доступен всем классам внутри этого проекта и больше нигде, и через трюк, ещё и тестовому проекту
-        internal static bool IsIsbn(string s)
+        public static bool IsIsbn(string s)
         {
             if (s == null)
                 return false;
