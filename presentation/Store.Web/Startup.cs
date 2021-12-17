@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Store.Memory;
 using System;
 using Store.Messages;
 using Store.Contractors;
@@ -36,8 +35,6 @@ namespace Store.Web
                 options.Cookie.IsEssential = true; // Хранение информации о пользователях по соглашению JD
             });
 
-            services.AddSingleton<IBookRepository, BookRepository>();
-            services.AddSingleton<IOrderRepository, OrderRepository>();
             services.AddSingleton<INotificationService, DebugNotificationService>();
             services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
             services.AddSingleton<IPaymentService, CashPaymentService>();
