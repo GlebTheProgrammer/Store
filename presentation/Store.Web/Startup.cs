@@ -9,6 +9,7 @@ using Store.Contractors;
 using Store.Yandex.Kassa;
 using Store.Web.Contractors;
 using Store.Web.App;
+using Store.Data.EF;
 
 namespace Store.Web
 {
@@ -34,6 +35,8 @@ namespace Store.Web
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true; // Хранение информации о пользователях по соглашению JD
             });
+
+            services.AddEfRepositories(Configuration.GetConnectionString("Store"));
 
             services.AddSingleton<INotificationService, DebugNotificationService>();
             services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
