@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Store.Contractors
 {
     public interface IDeliveryService
     {
-        string UniqueCode { get; }  // на замену id
+        string Name { get; }  // на замену id
 
         string Title { get; }
 
-        Form CreateForm(Order order);  // создаёт первый экран
+        Form FirstForm(Order order);  // создаёт первый экран
 
         // Если метод возвращает форму, у которой параметр isFinal == true, то на этом показ формул будет преостановлен
-        Form MoveNextForm(int orderId, int step, IReadOnlyDictionary<string, string> values);
+        Form NextForm(int step, IReadOnlyDictionary<string, string> values);
 
         OrderDelivery GetDelivery(Form form);
     }

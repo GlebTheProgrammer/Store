@@ -9,6 +9,7 @@ using Store.Messages;
 using Store.Contractors;
 using Store.Yandex.Kassa;
 using Store.Web.Contractors;
+using Store.Web.App;
 
 namespace Store.Web
 {
@@ -25,7 +26,8 @@ namespace Store.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            
+            services.AddHttpContextAccessor();
+
             services.AddDistributedMemoryCache(); // Ќаша корзина будет хранитьс€ в дистрибутивной пам€ти
             services.AddSession(options => 
             {
@@ -42,7 +44,7 @@ namespace Store.Web
             services.AddSingleton<IPaymentService, YandexKassaPaymentService>();
             services.AddSingleton<IWebContractorService, YandexKassaPaymentService>();
             services.AddSingleton<BookService>();
-
+            services.AddSingleton<OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,19 +71,13 @@ namespace Store.Web
 
             app.UseEndpoints(endpoints =>
             {
-                // controller/action/{id(parametr)}
-                // book
-                // book/index
-                // book/index/234 <- ” контроллера book будет запущено действие index с параметром 234
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"); // ѕо умолчанию если задан controller, то он всегда Home, а если не задано действие, то это index
-
-                endpoints.MapAreaControllerRoute(
-                    name: "yandex.kassa",
-                    areaName: "YandexKassa",
-                    pattern: "YandexKassa/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
