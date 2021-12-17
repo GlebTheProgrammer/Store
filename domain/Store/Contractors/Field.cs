@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 
 namespace Store.Contractors
 {
@@ -20,15 +17,6 @@ namespace Store.Contractors
             Label = label;
             Name = name;
             Value = value;
-        }
-    }
-
-    public class HiddenField : Field
-    {
-        public HiddenField(string label, string name, string value)
-            : base(label,name,value)
-        {
-
         }
     }
 
