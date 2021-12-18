@@ -9,7 +9,7 @@ using Store.Data.EF;
 namespace Store.Data.EF.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20211217223445_FullTextSearch")]
+    [Migration("20211217233733_FullTextSearch")]
     partial class FullTextSearch
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
