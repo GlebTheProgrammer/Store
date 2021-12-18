@@ -7,11 +7,15 @@
   <ItemGroup>
     <ProjectReference Include="..\..\application\Store.Web.App\Store.Web.App.csproj" />
     <ProjectReference Include="..\..\domain\Store\Store.csproj" />
-    <ProjectReference Include="..\..\infrastructure\Store.Memory\Store.Memory.csproj" />
+    <ProjectReference Include="..\..\infrastructure\Store.Data.EF\Store.Data.EF.csproj" />
     <ProjectReference Include="..\..\plugins\Store.Yandex.Kassa\Store.Yandex.Kassa.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 

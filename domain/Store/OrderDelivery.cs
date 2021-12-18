@@ -13,7 +13,7 @@ namespace Store
 
         public string Description { get; }
 
-        public decimal Amount { get; }  // Стоимость платной доставки
+        public decimal Price { get; }  // Стоимость платной доставки
 
         public IReadOnlyDictionary<string, string> Parameters { get; }
 
@@ -30,7 +30,7 @@ namespace Store
 
             UniqueCode = uniqueCode;
             Description = description;
-            Amount = amount;
+            Price = amount;
             Parameters = parameters;
         }
     }
